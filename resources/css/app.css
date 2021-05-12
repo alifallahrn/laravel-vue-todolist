@@ -1,0 +1,3 @@
+.bi{position:relative !important; top:-2px !important;margin-right:5px !important}
+.form-check-input:focus, .btn:focus{box-shadow: none !important; outline: none !important;}
+.form-check-input:checked{background-color: #aaa !important; border-color: #aaa !important;}
