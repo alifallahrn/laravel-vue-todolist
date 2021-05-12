@@ -15,7 +15,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Tasks::orderBy('created_at', 'DESC')->get();
+        $tasks = Tasks::orderBy('completed_at', 'ASC')->orderBy('created_at', 'DESC')->get();
 
         return response($tasks, 200);
     }
@@ -45,7 +45,7 @@ class TaskController extends Controller
     public function update(Request $request, $id)
     {
         $task = Tasks::find($id);
-        if($task){
+        if ($task) {
             $task->completed = $request->task['completed'] ? true : false;
             $task->completed_at = $request->task['completed'] ? Carbon::now() : null;
             $task->save();
@@ -63,7 +63,7 @@ class TaskController extends Controller
     public function destroy($id)
     {
         $task = Tasks::find($id);
-        if($task){
+        if ($task) {
             $task->delete();
             return response('The task was successfully deleted.', 200);
         }
