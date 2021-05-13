@@ -3,8 +3,9 @@
     <div class="row justify-content-md-center">
       <div class="col-6">
         <div class="pt-2 pb-2">
-          <h2 v-if="loading">
+          <h2>
             <div
+              v-if="loading"
               class="spinner-border"
               style="
                 font-size: 11px;
@@ -16,10 +17,8 @@
             >
               <span class="visually-hidden">Loading...</span>
             </div>
-            <span>Todo List</span>
-          </h2>
-          <h2 v-else>
             <svg
+              v-else
               xmlns="http://www.w3.org/2000/svg"
               width="24"
               height="24"

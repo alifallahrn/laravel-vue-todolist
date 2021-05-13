@@ -5004,7 +5004,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -41588,14 +41587,27 @@ var render = function() {
     _c("div", { staticClass: "row justify-content-md-center" }, [
       _c("div", { staticClass: "col-6" }, [
         _c("div", { staticClass: "pt-2 pb-2" }, [
-          _vm.loading
-            ? _c("h2", [
-                _vm._m(0),
-                _vm._v(" "),
-                _c("span", [_vm._v("Todo List")])
-              ])
-            : _c("h2", [
-                _c(
+          _c("h2", [
+            _vm.loading
+              ? _c(
+                  "div",
+                  {
+                    staticClass: "spinner-border",
+                    staticStyle: {
+                      "font-size": "11px",
+                      width: "24px",
+                      height: "24px",
+                      "margin-right": "5px"
+                    },
+                    attrs: { role: "status" }
+                  },
+                  [
+                    _c("span", { staticClass: "visually-hidden" }, [
+                      _vm._v("Loading...")
+                    ])
+                  ]
+                )
+              : _c(
                   "svg",
                   {
                     staticClass: "bi bi-check2-square",
@@ -41623,9 +41635,9 @@ var render = function() {
                     })
                   ]
                 ),
-                _vm._v(" "),
-                _c("span", [_vm._v("Todo List")])
-              ]),
+            _vm._v(" "),
+            _c("span", [_vm._v("Todo List")])
+          ]),
           _vm._v(" "),
           _c(
             "div",
@@ -41663,27 +41675,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "spinner-border",
-        staticStyle: {
-          "font-size": "11px",
-          width: "24px",
-          height: "24px",
-          "margin-right": "5px"
-        },
-        attrs: { role: "status" }
-      },
-      [_c("span", { staticClass: "visually-hidden" }, [_vm._v("Loading...")])]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
