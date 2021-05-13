@@ -38,7 +38,7 @@
 
 <script>
 export default {
-  props: ["task"],
+  props: ["task", "tasks"],
   methods: {
     updateTask() {
       axios
@@ -55,12 +55,14 @@ export default {
         });
     },
     removeTask() {
+      if (!confirm("Are you sure?")) return;
       axios
         .delete("api/task/" + this.task.id, {
           task: this.task,
         })
         .then((response) => {
           if (response.status == 200) {
+            this.tasks.splice(this.tasks.indexOf(this.task), 1);
             this.$emit("taskupdated");
           }
         })

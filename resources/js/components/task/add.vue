@@ -39,10 +39,12 @@
 
 <script>
 export default {
+  props: ["tasks"],
   data: function () {
     return {
       task: {
         title: "",
+        completed: false,
       },
     };
   },
@@ -55,6 +57,7 @@ export default {
         })
         .then((response) => {
           if (response.status == 201) {
+            this.tasks.push({ title: this.task.title });
             this.task.title = "";
             this.$emit("updateTasksList");
           }

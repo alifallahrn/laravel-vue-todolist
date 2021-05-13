@@ -4986,6 +4986,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -4995,15 +5014,18 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      tasks: []
+      tasks: [],
+      loading: false
     };
   },
   methods: {
     getTasksList: function getTasksList() {
       var _this = this;
 
+      this.loading = true;
       axios.get("api/tasks").then(function (response) {
         _this.tasks = response.data;
+        _this.loading = false;
       })["catch"](function (error) {
         console.log(error);
       });
@@ -5067,10 +5089,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ["tasks"],
   data: function data() {
     return {
       task: {
-        title: ""
+        title: "",
+        completed: false
       }
     };
   },
@@ -5083,6 +5107,10 @@ __webpack_require__.r(__webpack_exports__);
         task: this.task
       }).then(function (response) {
         if (response.status == 201) {
+          _this.tasks.push({
+            title: _this.task.title
+          });
+
           _this.task.title = "";
 
           _this.$emit("updateTasksList");
@@ -5108,6 +5136,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _single_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./single.vue */ "./resources/js/components/task/single.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5176,7 +5213,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ["task"],
+  props: ["task", "tasks"],
   methods: {
     updateTask: function updateTask() {
       var _this = this;
@@ -5194,10 +5231,13 @@ __webpack_require__.r(__webpack_exports__);
     removeTask: function removeTask() {
       var _this2 = this;
 
+      if (!confirm("Are you sure?")) return;
       axios["delete"]("api/task/" + this.task.id, {
         task: this.task
       }).then(function (response) {
         if (response.status == 200) {
+          _this2.tasks.splice(_this2.tasks.indexOf(_this2.task), 1);
+
           _this2.$emit("taskupdated");
         }
       })["catch"](function (error) {
@@ -41548,44 +41588,51 @@ var render = function() {
     _c("div", { staticClass: "row justify-content-md-center" }, [
       _c("div", { staticClass: "col-6" }, [
         _c("div", { staticClass: "pt-2 pb-2" }, [
-          _c("h2", [
-            _c(
-              "svg",
-              {
-                staticClass: "bi bi-check2-square",
-                attrs: {
-                  xmlns: "http://www.w3.org/2000/svg",
-                  width: "32",
-                  height: "32",
-                  fill: "currentColor",
-                  viewBox: "0 0 16 16"
-                }
-              },
-              [
-                _c("path", {
-                  attrs: {
-                    d:
-                      "M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z"
-                  }
-                }),
+          _vm.loading
+            ? _c("h2", [
+                _vm._m(0),
                 _vm._v(" "),
-                _c("path", {
-                  attrs: {
-                    d:
-                      "m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"
-                  }
-                })
-              ]
-            ),
-            _vm._v(" "),
-            _c("span", [_vm._v("Todo List")])
-          ]),
+                _c("span", [_vm._v("Todo List")])
+              ])
+            : _c("h2", [
+                _c(
+                  "svg",
+                  {
+                    staticClass: "bi bi-check2-square",
+                    attrs: {
+                      xmlns: "http://www.w3.org/2000/svg",
+                      width: "24",
+                      height: "24",
+                      fill: "currentColor",
+                      viewBox: "0 0 16 16"
+                    }
+                  },
+                  [
+                    _c("path", {
+                      attrs: {
+                        d:
+                          "M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("path", {
+                      attrs: {
+                        d:
+                          "m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"
+                      }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c("span", [_vm._v("Todo List")])
+              ]),
           _vm._v(" "),
           _c(
             "div",
             { staticClass: "mt-2" },
             [
               _c("task-add", {
+                attrs: { tasks: _vm.tasks },
                 on: {
                   updateTasksList: function($event) {
                     return _vm.getTasksList()
@@ -41602,7 +41649,7 @@ var render = function() {
           { staticClass: "mt-2" },
           [
             _c("task-list", {
-              attrs: { tasks: _vm.tasks },
+              attrs: { tasks: _vm.tasks, loading: _vm.loading },
               on: {
                 updateTasksList: function($event) {
                   return _vm.getTasksList()
@@ -41616,7 +41663,27 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "spinner-border",
+        staticStyle: {
+          "font-size": "11px",
+          width: "24px",
+          height: "24px",
+          "margin-right": "5px"
+        },
+        attrs: { role: "status" }
+      },
+      [_c("span", { staticClass: "visually-hidden" }, [_vm._v("Loading...")])]
+    )
+  }
+]
 render._withStripped = true
 
 
@@ -41734,28 +41801,34 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "ul",
-    { staticClass: "list-group" },
-    _vm._l(_vm.tasks, function(task, i) {
-      return _c(
-        "li",
-        { key: i, staticClass: "list-group-item" },
-        [
-          _c("task-single", {
-            attrs: { task: task },
-            on: {
-              taskupdated: function($event) {
-                return _vm.$emit("updateTasksList")
-              }
-            }
-          })
-        ],
-        1
-      )
-    }),
-    0
-  )
+  return _c("div", [
+    !_vm.tasks.length
+      ? _c("div", { staticClass: "alert alert-light" }, [
+          _vm._v("\n    Add your first task\n  ")
+        ])
+      : _c(
+          "ul",
+          { staticClass: "list-group" },
+          _vm._l(_vm.tasks, function(task, i) {
+            return _c(
+              "li",
+              { key: i, staticClass: "list-group-item" },
+              [
+                _c("task-single", {
+                  attrs: { task: task, tasks: _vm.tasks },
+                  on: {
+                    taskupdated: function($event) {
+                      return _vm.$emit("updateTasksList")
+                    }
+                  }
+                })
+              ],
+              1
+            )
+          }),
+          0
+        )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

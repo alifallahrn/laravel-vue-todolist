@@ -3,11 +3,26 @@
     <div class="row justify-content-md-center">
       <div class="col-6">
         <div class="pt-2 pb-2">
-          <h2>
+          <h2 v-if="loading">
+            <div
+              class="spinner-border"
+              style="
+                font-size: 11px;
+                width: 24px;
+                height: 24px;
+                margin-right: 5px;
+              "
+              role="status"
+            >
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <span>Todo List</span>
+          </h2>
+          <h2 v-else>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="32"
-              height="32"
+              width="24"
+              height="24"
               fill="currentColor"
               class="bi bi-check2-square"
               viewBox="0 0 16 16"
@@ -22,11 +37,15 @@
             <span>Todo List</span>
           </h2>
           <div class="mt-2">
-            <task-add v-on:updateTasksList="getTasksList()" />
+            <task-add :tasks="tasks" v-on:updateTasksList="getTasksList()" />
           </div>
         </div>
         <div class="mt-2">
-          <task-list :tasks="tasks" v-on:updateTasksList="getTasksList()" />
+          <task-list
+            :tasks="tasks"
+            :loading="loading"
+            v-on:updateTasksList="getTasksList()"
+          />
         </div>
       </div>
     </div>
@@ -41,14 +60,17 @@ export default {
   data: function () {
     return {
       tasks: [],
+      loading: false,
     };
   },
   methods: {
     getTasksList() {
+      this.loading = true;
       axios
         .get("api/tasks")
         .then((response) => {
           this.tasks = response.data;
+          this.loading = false;
         })
         .catch((error) => {
           console.log(error);
